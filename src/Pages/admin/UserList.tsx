@@ -11,7 +11,9 @@ type User = {
   joinedDate: string;
 };
 
-const UserList = () => {
+const UserList = () => 
+{
+  console.log("✅ UserList page rendered");
   const [users, setUsers] = useState<User[]>([
     {
       id: 1,
@@ -74,7 +76,8 @@ const UserList = () => {
     });
   }, [users, search, roleFilter, statusFilter]);
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: number) => 
+    {
     const confirmed = window.confirm(
       "Are you sure you want to delete this user?"
     );

@@ -3,9 +3,10 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 
-const DashboardLayout = () => {
+const DashboardLayout = () => 
+  
+{
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
     <div className="min-h-screen bg-[#F1F8E9] text-[#1B4332]">
 

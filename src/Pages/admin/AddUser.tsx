@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
+import useUserStore from "../../store/userStore";
+import axios from "axios";
 type AddUserFormData = {
   name: string;
   email: string;
@@ -14,6 +15,8 @@ type AddUserFormData = {
 
 const AddUser = () => {
   const navigate = useNavigate();
+
+  const addUser = useUserStore((state) => state.addUser);
 
   const [submitted, setSubmitted] = useState(false);
 
@@ -31,18 +34,37 @@ const AddUser = () => {
 
   const password = watch("password");
 
-  const onSubmit = (data: AddUserFormData) => {
-    console.log("New User Data:", data);
+ const onSubmit = async (data: AddUserFormData) => {
+  try {
+    const formData = new FormData();
+
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("mobile", data.mobile);
+    formData.append("password", data.password);
+    formData.append("role", data.role);
+    formData.append("status", data.status);
+
+    const response = await axios.post(
+      "http://localhost:8090/api/users",
+      formData
+    );
+
+    console.log("User created:", response.data);
 
     setSubmitted(true);
 
     setTimeout(() => {
       navigate("/admin/users");
     }, 1000);
-  };
+  } catch (error) {
+    console.error("Create user failed:", error);
+  }
+};
 
   return (
     <div className="w-full min-h-[calc(100vh-64px)] bg-gray-50 px-4 sm:px-6 lg:px-10 py-8">
+
       {/* Header */}
       <div className="mb-8">
         <p className="text-sm font-semibold text-blue-600 uppercase">
@@ -73,10 +95,12 @@ const AddUser = () => {
 
       {/* Form Card */}
       <div className="w-full max-w-4xl bg-white rounded-xl border border-gray-100 shadow-sm p-6 sm:p-8">
+
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="space-y-6"
         >
+
           {/* Basic Information */}
           <div>
             <h2 className="text-xl font-bold text-gray-900">
@@ -89,6 +113,7 @@ const AddUser = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
             {/* Name */}
             <div>
               <label
@@ -168,8 +193,7 @@ const AddUser = () => {
                   required: "Mobile number is required",
                   pattern: {
                     value: /^[0-9]{10}$/,
-                    message:
-                      "Enter a valid 10 digit mobile number",
+                    message: "Enter a valid 10 digit mobile number",
                   },
                 })}
               />
@@ -226,6 +250,7 @@ const AddUser = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
             {/* Password */}
             <div>
               <label
@@ -244,8 +269,7 @@ const AddUser = () => {
                   required: "Password is required",
                   minLength: {
                     value: 6,
-                    message:
-                      "Password must be at least 6 characters",
+                    message: "Password must be at least 6 characters",
                   },
                 })}
               />
@@ -272,8 +296,7 @@ const AddUser = () => {
                 placeholder="Confirm password"
                 className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 {...register("confirmPassword", {
-                  required:
-                    "Please confirm your password",
+                  required: "Please confirm your password",
                   validate: (value) =>
                     value === password ||
                     "Passwords do not match",
@@ -332,6 +355,7 @@ const AddUser = () => {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
+
             <button
               type="submit"
               className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition"
@@ -345,6 +369,7 @@ const AddUser = () => {
             >
               Cancel
             </Link>
+
           </div>
         </form>
       </div>
@@ -358,6 +383,7 @@ const AddUser = () => {
           ← Back to Admin Dashboard
         </Link>
       </div>
+
     </div>
   );
 };

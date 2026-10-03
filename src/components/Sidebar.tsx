@@ -4,6 +4,7 @@ import useAuthStore from "../store/authStore";
 type SidebarProps = {
   open: boolean;
   onClose: () => void;
+  
 };
 
 const Sidebar = ({ open, onClose }: SidebarProps) => {

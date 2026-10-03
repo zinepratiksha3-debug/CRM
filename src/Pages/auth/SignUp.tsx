@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 type SignUpFormData = {
@@ -10,6 +10,9 @@ type SignUpFormData = {
 };
 
 const SignUp = () => {
+
+
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -20,8 +23,10 @@ const SignUp = () => {
   const password = watch("password");
 
   const onSubmit = (data: SignUpFormData) => {
-    console.log("Sign Up Data:", data);
-  };
+  console.log("Sign Up Data:", data);
+
+  navigate("/signin");
+};
 
   return (
     <div className="w-full min-h-[calc(100vh-64px)] bg-[#F4F8F7] flex items-center justify-center px-4 py-12">

@@ -33,6 +33,8 @@ import UserDetails from "../Pages/admin/UserDetails";
 
 import ProtectedRoute from "../components/ProtectedRoute";
 import AdminRoute from "../components/AdminRoute";
+import { User } from "lucide-react";
+import Users from "../Pages/admin/UserList";
 
 const AppRoutes = () => {
   return (
@@ -69,6 +71,10 @@ const AppRoutes = () => {
             path="/reset-password"
             element={<ResetPassword />}
           />
+          <Route
+  path="/admin/users"
+  element={<Users />}
+/>
 
           {/* ================= PROTECTED USER PAGES ================= */}
 
@@ -84,6 +90,11 @@ const AppRoutes = () => {
             <Route
               path="/profile"
               element={<Profile />}
+            />
+
+            <Route
+              path="/addenq"
+              element={<AddEnquiry/>}
             />
 
             {/* Edit Profile */}
@@ -115,6 +126,11 @@ const AppRoutes = () => {
               path="/enquiries/:id/edit"
               element={<EditEnquiry />}
             />
+              {/* <Route
+              path="/profile"
+              element={<ProfilePage/>}
+            /> */}
+            
 
             {/* Enquiry Details */}
             <Route
@@ -136,7 +152,10 @@ const AppRoutes = () => {
               path="/admin"
               element={<AdminDashboard />}
             />
-
+            <Route
+              path="/userlist"
+              element={<User/>}
+            />
             {/* User List */}
             <Route
               path="/admin/users"
@@ -167,10 +186,10 @@ const AppRoutes = () => {
         {/* ================= USERS ================= */}
 
         <Route element={<ProtectedRoute />}>
-          <Route
+          {/* <Route
             path="/users"
             element={<UserList />}
-          />
+          /> */}
         </Route>
 
       </Routes>

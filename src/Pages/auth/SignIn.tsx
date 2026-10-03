@@ -1,16 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAuthStore from "../../store/authStore";
-
-type SignInFormData = {
+type SignInFormData = 
+{
   email: string;
   password: string;
 };
 
 const SignIn = () => {
   const navigate = useNavigate();
-
-  const login = useAuthStore((state) => state.login);
+   const login = useAuthStore((state) => state.login);
 
   const {
     register,
@@ -18,24 +17,25 @@ const SignIn = () => {
     formState: { errors },
   } = useForm<SignInFormData>();
 
-  const onSubmit = (data: SignInFormData) => {
-    console.log("Sign In Data:", data);
+ const onSubmit = (data: SignInFormData) => {
+  console.log("Sign In Data:", data);
 
-    const user = {
-      id: "1",
-      name: "Pratiksha",
-      email: data.email,
-      mobile: "9876543210",
-      role:
-        data.email === "admin@crm.com"
-          ? ("admin" as const)
-          : ("customer" as const),
-    };
-
-    login(user);
-
-    navigate("/dashboard");
+  const user = {
+    id: "1",
+    name: "Rahul Patil",
+    email: data.email,
+    mobile: "9876543212",
+    role: "admin" as const,
   };
+
+  login(user);
+
+  if (user.role === "admin") {
+    navigate("/admin");
+  } else {
+    navigate("/dashboard");
+  }
+};
 
   return (
     <div className="w-full min-h-[calc(100vh-64px)] bg-[#F4F8F7] flex items-center justify-center px-4 py-12">
