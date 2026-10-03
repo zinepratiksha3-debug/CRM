@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import useUserStore from "../../store/userStore";
+// import useUserStore from "../../store/userStore";
 import axios from "axios";
 type AddUserFormData = {
   name: string;
@@ -16,7 +16,7 @@ type AddUserFormData = {
 const AddUser = () => {
   const navigate = useNavigate();
 
-  const addUser = useUserStore((state) => state.addUser);
+  // const addUser = useUserStore((state) => state.addUser);
 
   const [submitted, setSubmitted] = useState(false);
 
